@@ -77,3 +77,40 @@ def icm(max_iters=1000):
             return current
 
     return current if count_violations(current) == 0 else None
+
+
+def print_solution(solution):
+    print("\nAsignación encontrada:")
+    for v in VARIABLES:
+        print(f"  {v} -> {solution[v]}")
+
+    print("\nVerificación:")
+    print(f"Violaciones: {count_violations(solution)}")
+
+
+def main():
+    print("="*60)
+    print("LOCAL SEARCH - ICM")
+    print("="*60)
+
+    attempts = 5  # ejecutar varias veces porque es aleatorio
+    success = False
+
+    for i in range(attempts):
+        print(f"\nIntento {i+1}:")
+        solution = icm(max_iters=1000)
+
+        if solution:
+            print("✔ Solución válida encontrada")
+            print_solution(solution)
+            success = True
+            break
+        else:
+            print("✘ No encontró solución (óptimo local)")
+
+    if not success:
+        print("\n⚠ ICM falló en todos los intentos")
+
+
+if __name__ == "__main__":
+    main()
